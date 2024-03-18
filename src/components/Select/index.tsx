@@ -18,7 +18,7 @@ const Select = () => {
   return (
     <div className="text-light-gray flex flex-col gap-1">
       <p className="text-xs">Sort by:</p>
-      <div
+      <button
         className="flex items-center justify-between p-3 box-border border-2 border-medium-gray rounded-lg h-10 hover:cursor-pointer"
         onClick={toggleOpen}
       >
@@ -30,17 +30,17 @@ const Select = () => {
             className={`${isOpen ? "rotate-180" : "rotate-0"}`}
           />
         </div>
-      </div>
+      </button>
       {isOpen && (
         <div className="flex flex-col gap-2 border-2 border-medium-gray rounded-lg">
           {options.map((option) => (
-            <p
+            <button
               key={option.id}
-              className="p-3 hover:bg-medium-gray hover:text-offwhite hover:cursor-pointer"
+              className="text-left p-3 hover:bg-medium-gray hover:text-offwhite hover:cursor-pointer"
               onClick={() => updateOption(option.name)}
             >
               {option.name}
-            </p>
+            </button>
           ))}
         </div>
       )}
