@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Population",
+    "value": "population",
+    "id": 1
+  },
+  {
+    "name": "Area",
+    "value": "area",
+    "id": 2
+  }
+]

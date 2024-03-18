@@ -1,5 +1,6 @@
 import Header from "src/components/Header";
 import Input from "src/components/Input";
+import Select from "src/components/Select";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
           <p className="text-light-gray font-bold">Found 234 countries</p>
           <Input />
         </div>
+        <Select />
       </main>
     </>
   );
