@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Header from "src/components/Header";
 import Input from "src/components/Input";
 import Select from "src/components/Select";
+import Status from "src/components/Status";
+import Tags from "src/components/Tags";
 import http from "src/http";
 
 const Home = () => {
@@ -20,13 +22,15 @@ const Home = () => {
       <main className="flex flex-col gap-5 p-5 w-full h-screen bg-blue-50 lg:w-4/5 lg:absolute lg:top-40 lg:rounded-2xl lg:left-2/4 lg:-translate-x-1/2 dark:bg-dark-gray">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {allCountries && (
-            <p className=" text-blue-world-rank font-bold dark:text-light-gray">
+            <h2 className="font-bold text-base md:text-lg lg:text-xl text-blue-world-rank dark:text-light-gray">
               Found {allCountries} countries
-            </p>
+            </h2>
           )}
           <Input />
         </div>
         <Select />
+        <Tags />
+        <Status />
       </main>
     </>
   );

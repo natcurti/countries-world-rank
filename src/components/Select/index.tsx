@@ -16,8 +16,8 @@ const Select = () => {
   };
 
   return (
-    <section className="flex flex-col gap-1 text-blue-world-rank dark:text-light-gray">
-      <h2 className="text-xs font-bold sm:text-base">Sort by:</h2>
+    <section className="section">
+      <h3>Sort by:</h3>
       <button
         className={`flex items-center justify-between p-3 box-border border-2 border-blue-world-rank 
         rounded-lg h-10 hover:cursor-pointer dark:border-light-gray 

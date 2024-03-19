@@ -6,4 +6,13 @@
   body {
     @apply font-beVietnam font-medium bg-blue-200 dark:bg-darkest-gray;
   }
+  h3 {
+    @apply text-xs font-bold sm:text-base;
+  }
+}
+
+@layer components {
+  .section {
+    @apply flex flex-col gap-1 text-blue-world-rank dark:text-light-gray;
+  }
 }
