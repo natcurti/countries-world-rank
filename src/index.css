@@ -7,7 +7,7 @@
     @apply font-beVietnam font-medium bg-blue-200 dark:bg-darkest-gray;
   }
   h3 {
-    @apply text-xs font-bold sm:text-base;
+    @apply text-xs text-blue-900 font-bold sm:text-base dark:text-light-gray;
   }
 }
 

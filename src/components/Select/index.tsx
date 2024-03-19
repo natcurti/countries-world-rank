@@ -21,17 +21,17 @@ const Select = () => {
       <button
         className={`flex items-center justify-between p-3 box-border border-2 border-blue-world-rank 
         rounded-lg h-10 hover:cursor-pointer dark:border-light-gray 
-        ${isOpen && "border-blue-950"}
+        ${isOpen && "border-blue-900"}
         `}
         onClick={toggleOpen}
       >
-        <p className={`${isOpen && "text-blue-950 dark:text-offwhite"}`}>
+        <p className={`${isOpen && "text-blue-900 dark:text-offwhite"}`}>
           {currentOption}
         </p>
         <div>
           <ChevronDownIcon
             className={`${
-              isOpen ? "rotate-180" : "rotate-0"
+              isOpen ? "rotate-180 text-blue-900" : "rotate-0"
             } w-4 text-blue-world-rank dark:text-light-gray`}
           />
         </div>
