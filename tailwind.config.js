@@ -10,11 +10,12 @@ export default {
         banner: "url('/src/assets/images/hero-image-wr.jpg')",
       },
       colors: {
+        "darkest-gray": "#111112",
         "dark-gray": "#1B1D1F",
         "medium-gray": "#282B30",
         "light-gray": "#6C727F",
         offwhite: "#D2D5DA",
-        blue: "#4E80EE",
+        "blue-world-rank": "#4E80EE",
       },
     },
   },

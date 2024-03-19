@@ -1,4 +1,4 @@
-import arrowDown from "src/assets/images/Expand_down.svg";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import options from "./options.json";
 import { useState } from "react";
 
@@ -16,27 +16,32 @@ const Select = () => {
   };
 
   return (
-    <div className="text-light-gray flex flex-col gap-1">
-      <p className="text-xs">Sort by:</p>
+    <section className="flex flex-col gap-1 text-blue-world-rank dark:text-light-gray">
+      <h2 className="text-xs font-bold sm:text-base">Sort by:</h2>
       <button
-        className="flex items-center justify-between p-3 box-border border-2 border-medium-gray rounded-lg h-10 hover:cursor-pointer"
+        className={`flex items-center justify-between p-3 box-border border-2 border-blue-world-rank 
+        rounded-lg h-10 hover:cursor-pointer dark:border-light-gray 
+        ${isOpen && "border-blue-950"}
+        `}
         onClick={toggleOpen}
       >
-        <p>{currentOption}</p>
+        <p className={`${isOpen && "text-blue-950 dark:text-offwhite"}`}>
+          {currentOption}
+        </p>
         <div>
-          <img
-            src={arrowDown}
-            alt="Icon arrow down"
-            className={`${isOpen ? "rotate-180" : "rotate-0"}`}
+          <ChevronDownIcon
+            className={`${
+              isOpen ? "rotate-180" : "rotate-0"
+            } w-4 text-blue-world-rank dark:text-light-gray`}
           />
         </div>
       </button>
       {isOpen && (
-        <div className="flex flex-col gap-2 border-2 border-medium-gray rounded-lg">
+        <div className="flex flex-col outline outline-2 outline-gray-300 rounded-lg dark:outline-medium-gray">
           {options.map((option) => (
             <button
               key={option.id}
-              className="text-left p-3 hover:bg-medium-gray hover:text-offwhite hover:cursor-pointer"
+              className="first:rounded-t-lg last:rounded-b-lg text-left p-3 text-gray-400 hover:bg-blue-world-rank hover:text-white hover:cursor-pointer dark:text-light-gray dark:hover:bg-medium-gray dark:hover:text-offwhite"
               onClick={() => updateOption(option.name)}
             >
               {option.name}
@@ -44,7 +49,7 @@ const Select = () => {
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
