@@ -5,11 +5,19 @@ export interface ICountry {
   };
   independent: boolean;
   status: string;
-  currency: string;
+  currencies: {
+    currency: {
+      name: string;
+      symbol: string;
+    };
+  };
   capital: string;
   region: string;
   subregion: string;
-  languages: string[];
+  languages: {
+    primaryLanguage: string;
+    secondaryLanguage: string;
+  };
   area: number;
   population: number;
   flags: {
