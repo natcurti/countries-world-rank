@@ -29,7 +29,7 @@ const ButtonCheckbox = ({ status }: IButtonCheckbox) => {
       <div
         className={`w-6 h-6 border-2 border-blue-700 
         rounded-md dark:border-light-gray ${
-          isActive && "bg-blue-700 border-0"
+          isActive && "bg-blue-700 border-0 dark:border-0"
         }`}
       >
         {isActive && <CheckIcon className="text-white" />}

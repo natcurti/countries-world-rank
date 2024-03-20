@@ -2,24 +2,27 @@ import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { useLayoutEffect, useState } from "react";
 
 const ToggleTheme = () => {
-  const [theme, setTheme] = useState("");
+  const [darkMode, setDarkMode] = useState<boolean | undefined>(undefined);
 
   useLayoutEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+    if (darkMode) {
+      localStorage.setItem("darkMode", "true");
+      window.document.documentElement.classList.add("dark");
+    } else if (darkMode === false) {
+      localStorage.setItem("darkMode", "false");
+      window.document.documentElement.classList.remove("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      setDarkMode(localStorage.getItem("darkMode") === "true");
     }
-  }, [theme]);
+  }, [darkMode]);
 
   const toggle = () => {
-    if (theme === "dark") setTheme("");
-    if (theme === "") setTheme("dark");
+    setDarkMode(!darkMode);
   };
 
   return (
     <button className="absolute top-4 right-4" onClick={toggle}>
-      {theme === "dark" ? (
+      {darkMode ? (
         <SunIcon className="text-offwhite w-6" />
       ) : (
         <MoonIcon className="text-offwhite w-6" />
