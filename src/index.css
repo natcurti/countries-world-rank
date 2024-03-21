@@ -6,8 +6,7 @@
   body {
     @apply font-beVietnam font-medium bg-blue-200 dark:bg-darkest-gray;
   }
-  h3,
-  .titleCountriesContainer {
+  h3 {
     @apply text-xs text-blue-900 font-bold sm:text-base dark:text-light-gray;
   }
 }
@@ -15,5 +14,9 @@
 @layer components {
   .section {
     @apply flex flex-col gap-1 text-blue-world-rank dark:text-light-gray;
+  }
+
+  .titleCountriesContainer {
+    @apply text-xs text-blue-world-rank font-bold xs:text-base dark:text-light-gray;
   }
 }

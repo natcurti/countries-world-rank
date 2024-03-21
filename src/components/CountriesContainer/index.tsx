@@ -6,14 +6,15 @@ const CountriesContainer = () => {
   const { countries } = useContext(CountriesContext);
 
   return (
-    <section className="bg-pink-500">
-      <div className="grid grid-cols-4 titleCountriesContainer">
+    <section>
+      <div className="grid grid-cols-4 gap-2 mb-5 titleCountriesContainer">
         <p>Flag</p>
         <p>Name</p>
         <p>Population</p>
         <p>Area(km²)</p>
       </div>
-      <div className="flex flex-col">
+      <div className="w-full h-[2px] bg-blue-world-rank mb-4 dark:bg-light-gray"></div>
+      <div className="flex flex-col gap-4">
         {countries.map((country, index) => (
           <Country
             key={index}

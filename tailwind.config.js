@@ -17,6 +17,9 @@ export default {
         offwhite: "#D2D5DA",
         "blue-world-rank": "#4E80EE",
       },
+      screens: {
+        xs: "480px",
+      },
     },
   },
   plugins: [],
