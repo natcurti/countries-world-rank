@@ -21,6 +21,7 @@
   }
 
   .btn-next-and-prev {
-    @apply flex items-center justify-between p-2 uppercase text-xs bg-blue-world-rank text-white rounded-3xl w-24 h-8 transition sm:w-32 sm:h-12 sm:p-4 sm:text-sm;
+    @apply flex items-center justify-between p-2 uppercase text-xs text-white rounded-3xl    
+    w-24 h-8 transition from-blue-900 to-blue-500  dark:from-darkest-gray dark:to-medium-gray sm:w-32 sm:h-12 sm:p-4 sm:text-sm;
   }
 }
