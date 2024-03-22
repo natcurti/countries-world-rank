@@ -12,23 +12,33 @@ const CountriesContainer = () => {
   const pages = usePagination();
   const [countriesToShow, setCountriesToShow] = useState<ICountry[]>([]);
   const [index, setIndex] = useState<number>(0);
-  const [disabled] = useState<boolean>(false);
+  const [disabledNext, setDisabledNext] = useState<boolean>(false);
+  const [disabledPrev, setDisabledPrev] = useState<boolean>(false);
 
   useEffect(() => {
     setCountriesToShow(pages[0]);
+    setDisabledPrev(true);
   }, [pages]);
 
   const nextPage = () => {
+    setDisabledPrev(false);
     if (index < pages.length - 1) {
       setCountriesToShow(pages[index + 1]);
       setIndex((previous) => previous + 1);
     }
+    if (index === 7) {
+      setDisabledNext(true);
+    }
   };
 
   const prevPage = () => {
+    setDisabledNext(false);
     if (index > 0) {
       setCountriesToShow(pages[index - 1]);
       setIndex((previous) => previous - 1);
+    }
+    if (index === 1) {
+      setDisabledPrev(true);
     }
   };
 
@@ -62,15 +72,15 @@ const CountriesContainer = () => {
       </div>
       <div className="flex gap-4 justify-center mt-5">
         <ButtonNextAndPrev
-          onClick={disabled ? () => {} : prevPage}
-          disabled={disabled}
+          onClick={disabledPrev ? () => {} : prevPage}
+          disabled={disabledPrev}
         >
           <ChevronDoubleLeftIcon className="w-4 sm:w-5" />
           Previous
         </ButtonNextAndPrev>
         <ButtonNextAndPrev
-          onClick={disabled ? () => {} : nextPage}
-          disabled={disabled}
+          onClick={disabledNext ? () => {} : nextPage}
+          disabled={disabledNext}
         >
           Next
           <ChevronDoubleRightIcon className="w-4 sm:w-5" />
