@@ -9,8 +9,6 @@ import { CountriesContext } from "src/context/CountriesContext";
 
 const Home = () => {
   const { countries } = useContext(CountriesContext);
-  console.log(countries);
-
   return (
     <>
       <Header />

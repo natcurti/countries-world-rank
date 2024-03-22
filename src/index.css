@@ -16,7 +16,11 @@
     @apply flex flex-col gap-1 text-blue-world-rank dark:text-light-gray;
   }
 
-  .titleCountriesContainer {
+  .title-countries-container {
     @apply text-xs text-blue-world-rank font-bold xs:text-base dark:text-light-gray;
+  }
+
+  .btn-next-and-prev {
+    @apply flex items-center justify-between p-2 uppercase text-xs bg-blue-world-rank text-white rounded-3xl w-24 h-8 transition sm:w-32 sm:h-12 sm:p-4 sm:text-sm;
   }
 }
