@@ -37,11 +37,11 @@ const Select = () => {
         </div>
       </button>
       {isOpen && (
-        <div className="flex flex-col outline outline-2 outline-gray-300 rounded-lg dark:outline-medium-gray">
+        <div className="flex flex-col outline outline-2 outline-blue-300 rounded-lg dark:outline-medium-gray">
           {options.map((option) => (
             <button
               key={option.id}
-              className="first:rounded-t-lg last:rounded-b-lg text-left p-3 text-gray-400 hover:bg-blue-world-rank hover:text-white hover:cursor-pointer dark:text-light-gray dark:hover:bg-medium-gray dark:hover:text-offwhite"
+              className="first:rounded-t-lg last:rounded-b-lg text-left p-3 text-blue-300 focus:outline-0 focus:bg-blue-world-rank focus:text-white hover:bg-blue-world-rank hover:text-white hover:cursor-pointer dark:text-light-gray dark:hover:bg-medium-gray dark:hover:text-offwhite dark:focus:bg-medium-gray dark:focus:text-offwhite"
               onClick={() => updateOption(option.name)}
             >
               {option.name}

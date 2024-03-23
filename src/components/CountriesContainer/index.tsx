@@ -43,7 +43,7 @@ const CountriesContainer = () => {
   };
 
   return (
-    <section>
+    <section className="lg:w-3/4">
       <div className="grid grid-cols-4 gap-2 mb-5 title-countries-container">
         <p>Flag</p>
         <p>Name</p>

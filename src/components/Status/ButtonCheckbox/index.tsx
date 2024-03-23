@@ -23,7 +23,7 @@ const ButtonCheckbox = ({ status }: IButtonCheckbox) => {
 
   return (
     <button
-      className="flex gap-2 items-center dark:text-offwhite"
+      className="h-10 flex gap-4 items-center text-base lg:text-xs xl:text-base focus:outline-blue-900 dark:focus:outline-white dark:text-offwhite"
       onClick={() => defineStatus(status)}
     >
       <div
@@ -34,7 +34,7 @@ const ButtonCheckbox = ({ status }: IButtonCheckbox) => {
       >
         {isActive && <CheckIcon className="text-white" />}
       </div>
-      {status}
+      <p>{status}</p>
     </button>
   );
 };
