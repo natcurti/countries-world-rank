@@ -2,22 +2,20 @@ import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Country from "./Country";
 import { ICountry } from "src/types/ICountry";
 import usePagination from "src/hooks/usePagination";
 import ButtonNextAndPrev from "../Buttons/ButtonNextAndPrev";
+import { FiltersContext } from "src/context/FiltersContext";
 
-interface ICountriesContainer {
-  filteredCountries: ICountry[];
-}
-
-const CountriesContainer = ({ filteredCountries }: ICountriesContainer) => {
+const CountriesContainer = () => {
   const pages = usePagination();
   const [countriesToShow, setCountriesToShow] = useState<ICountry[]>([]);
   const [index, setIndex] = useState<number>(0);
   const [disabledNext, setDisabledNext] = useState<boolean>(false);
   const [disabledPrev, setDisabledPrev] = useState<boolean>(false);
+  const { filteredCountries } = useContext(FiltersContext);
 
   useEffect(() => {
     if (filteredCountries.length > 0) {

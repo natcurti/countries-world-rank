@@ -1,17 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CheckIcon } from "@heroicons/react/16/solid";
-import { IStatus } from "..";
+import { FiltersContext } from "src/context/FiltersContext";
 
-interface IButtonCheckbox extends IStatus {
+interface IButtonCheckbox {
   status: string;
 }
 
-const ButtonCheckbox = ({
-  status,
-  filterStatus,
-  setFilterStatus,
-}: IButtonCheckbox) => {
+const ButtonCheckbox = ({ status }: IButtonCheckbox) => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const { filterStatus, setFilterStatus } = useContext(FiltersContext);
 
   const defineStatus = (status: string) => {
     setIsActive(!isActive);

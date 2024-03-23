@@ -8,6 +8,8 @@ interface IFiltersContext {
   setFilterStatus: React.Dispatch<React.SetStateAction<string[]>>;
   filteredCountries: ICountry[];
   setFilteredCountries: React.Dispatch<React.SetStateAction<ICountry[]>>;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const FiltersContext = createContext<IFiltersContext>({
@@ -17,6 +19,8 @@ export const FiltersContext = createContext<IFiltersContext>({
   setFilterStatus: () => {},
   filteredCountries: [],
   setFilteredCountries: () => {},
+  search: "",
+  setSearch: () => {},
 });
 
 interface IFiltersContextProvider {
@@ -28,6 +32,7 @@ export const FiltersContextProvider = ({
 }: IFiltersContextProvider) => {
   const [filterTags, setFilterTags] = useState<string[]>([]);
   const [filterStatus, setFilterStatus] = useState<string[]>([]);
+  const [search, setSearch] = useState<string>("");
   const [filteredCountries, setFilteredCountries] = useState<ICountry[]>([]);
 
   return (
@@ -39,6 +44,8 @@ export const FiltersContextProvider = ({
         setFilterStatus,
         filteredCountries,
         setFilteredCountries,
+        search,
+        setSearch,
       }}
     >
       {children}
