@@ -1,24 +1,24 @@
 import { useState } from "react";
 import { CheckIcon } from "@heroicons/react/16/solid";
+import { IStatus } from "..";
 
-interface IButtonCheckbox {
+interface IButtonCheckbox extends IStatus {
   status: string;
 }
 
-const ButtonCheckbox = ({ status }: IButtonCheckbox) => {
+const ButtonCheckbox = ({
+  status,
+  filterStatus,
+  setFilterStatus,
+}: IButtonCheckbox) => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [statusSearch, setStatusSearch] = useState<string[]>([]);
 
   const defineStatus = (status: string) => {
-    const index = statusSearch.indexOf(status);
-    index === -1
-      ? setStatusSearch((previous) => [...previous, status])
-      : setIsActive(true);
-    index !== -1
-      ? setStatusSearch((previous) =>
-          previous.filter((item) => item !== status)
-        )
-      : setIsActive(false);
+    setIsActive(!isActive);
+    const index = filterStatus.indexOf(status);
+    if (index === -1) setFilterStatus((previous) => [...previous, status]);
+    if (index !== -1)
+      setFilterStatus((previous) => previous.filter((item) => item !== status));
   };
 
   return (

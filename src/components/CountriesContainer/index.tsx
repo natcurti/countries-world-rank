@@ -13,8 +13,6 @@ interface ICountriesContainer {
 }
 
 const CountriesContainer = ({ filteredCountries }: ICountriesContainer) => {
-  console.log(filteredCountries);
-
   const pages = usePagination();
   const [countriesToShow, setCountriesToShow] = useState<ICountry[]>([]);
   const [index, setIndex] = useState<number>(0);
@@ -27,6 +25,7 @@ const CountriesContainer = ({ filteredCountries }: ICountriesContainer) => {
       setDisabledNext(true);
     } else {
       setCountriesToShow(pages[0]);
+      setDisabledNext(false);
     }
     setDisabledPrev(true);
   }, [pages, filteredCountries]);
@@ -69,7 +68,7 @@ const CountriesContainer = ({ filteredCountries }: ICountriesContainer) => {
               key={index}
               name={country.name}
               independent={country.independent}
-              status={country.status}
+              unMember={country.unMember}
               currencies={country.currencies}
               capital={country.capital}
               region={country.region}

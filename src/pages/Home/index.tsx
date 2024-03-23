@@ -12,8 +12,7 @@ const Home = () => {
   const [filteredCountries, setFilteredCountries] = useState<ICountry[]>([]);
   const [search, setSearch] = useState<string>("");
   const [filterTags, setFilterTags] = useState<string[]>([]);
-
-  console.log(filterTags);
+  const [filterStatus, setFilterStatus] = useState<string[]>([]);
 
   useEffect(() => {
     setFilteredCountries(
@@ -33,6 +32,35 @@ const Home = () => {
     setFilteredCountries(countriesFilteredByTags.flat());
   }, [countries, filterTags]);
 
+  useEffect(() => {
+    const independentCountries = countries.filter(
+      (country) => country.independent
+    );
+    const unMemberCountries = countries.filter((country) => country.unMember);
+    const independentAndUnMemberCountries = countries.filter(
+      (country) => country.unMember && country.independent
+    );
+
+    if (
+      filterStatus.includes("Independent") &&
+      !filterStatus.includes("Member of the United Nations")
+    )
+      setFilteredCountries(independentCountries);
+
+    if (
+      !filterStatus.includes("Independent") &&
+      filterStatus.includes("Member of the United Nations")
+    )
+      setFilteredCountries(unMemberCountries);
+
+    if (
+      filterStatus.includes("Independent") &&
+      filterStatus.includes("Member of the United Nations")
+    )
+      setFilteredCountries(independentAndUnMemberCountries);
+    else setFilteredCountries([]);
+  }, [countries, filterStatus]);
+
   return (
     <main>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -45,7 +73,10 @@ const Home = () => {
         <div className="flex flex-col gap-8 lg:w-1/4">
           <Select />
           <Tags filterTags={filterTags} setFilterTags={setFilterTags} />
-          <Status />
+          <Status
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+          />
         </div>
         <CountriesContainer filteredCountries={filteredCountries} />
       </div>

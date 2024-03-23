@@ -4,7 +4,7 @@ export interface ICountry {
     official: string;
   };
   independent: boolean;
-  status: string;
+  unMember: string;
   currencies: {
     currency: {
       name: string;
