@@ -11,6 +11,9 @@ const Home = () => {
   const { countries } = useContext(CountriesContext);
   const [filteredCountries, setFilteredCountries] = useState<ICountry[]>([]);
   const [search, setSearch] = useState<string>("");
+  const [filterTags, setFilterTags] = useState<string[]>([]);
+
+  console.log(filterTags);
 
   useEffect(() => {
     setFilteredCountries(
@@ -23,7 +26,12 @@ const Home = () => {
     );
   }, [countries, search]);
 
-  console.log(filteredCountries);
+  useEffect(() => {
+    const countriesFilteredByTags = filterTags.map((region) =>
+      countries.filter((country) => country.region === region)
+    );
+    setFilteredCountries(countriesFilteredByTags.flat());
+  }, [countries, filterTags]);
 
   return (
     <main>
@@ -36,7 +44,7 @@ const Home = () => {
       <div className="flex flex-col gap-6 lg:flex-row">
         <div className="flex flex-col gap-8 lg:w-1/4">
           <Select />
-          <Tags />
+          <Tags filterTags={filterTags} setFilterTags={setFilterTags} />
           <Status />
         </div>
         <CountriesContainer filteredCountries={filteredCountries} />

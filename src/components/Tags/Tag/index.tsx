@@ -1,21 +1,19 @@
 import { useState } from "react";
+import { ITags } from "..";
 
-interface ITag {
+interface ITag extends ITags {
   region: string;
 }
 
-const Tag = ({ region }: ITag) => {
+const Tag = ({ region, filterTags, setFilterTags }: ITag) => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [filterTags, setFilterTags] = useState<string[]>([""]);
 
   const defineTag = (region: string) => {
+    setIsActive(!isActive);
     const index = filterTags.indexOf(region);
-    index === -1
-      ? setFilterTags((previous) => [...previous, region])
-      : setIsActive(true);
-    index !== -1
-      ? setFilterTags((previous) => previous.filter((item) => item !== region))
-      : setIsActive(false);
+    index === -1 && setFilterTags((previous) => [...previous, region]);
+    index !== -1 &&
+      setFilterTags((previous) => previous.filter((item) => item !== region));
   };
 
   return (
