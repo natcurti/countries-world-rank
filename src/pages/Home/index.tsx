@@ -58,7 +58,6 @@ const Home = () => {
       filterStatus.includes("Member of the United Nations")
     )
       setFilteredCountries(independentAndUnMemberCountries);
-    else setFilteredCountries([]);
   }, [countries, filterStatus]);
 
   return (
