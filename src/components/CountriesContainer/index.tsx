@@ -8,7 +8,13 @@ import { ICountry } from "src/types/ICountry";
 import usePagination from "src/hooks/usePagination";
 import ButtonNextAndPrev from "../Buttons/ButtonNextAndPrev";
 
-const CountriesContainer = () => {
+interface ICountriesContainer {
+  filteredCountries: ICountry[];
+}
+
+const CountriesContainer = ({ filteredCountries }: ICountriesContainer) => {
+  console.log(filteredCountries);
+
   const pages = usePagination();
   const [countriesToShow, setCountriesToShow] = useState<ICountry[]>([]);
   const [index, setIndex] = useState<number>(0);
@@ -16,9 +22,14 @@ const CountriesContainer = () => {
   const [disabledPrev, setDisabledPrev] = useState<boolean>(false);
 
   useEffect(() => {
-    setCountriesToShow(pages[0]);
+    if (filteredCountries.length > 0) {
+      setCountriesToShow(filteredCountries);
+      setDisabledNext(true);
+    } else {
+      setCountriesToShow(pages[0]);
+    }
     setDisabledPrev(true);
-  }, [pages]);
+  }, [pages, filteredCountries]);
 
   const nextPage = () => {
     setDisabledPrev(false);

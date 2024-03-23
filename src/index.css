@@ -11,8 +11,16 @@
     @apply h-full;
   }
 
+  h2 {
+    @apply text-base sm:text-xl text-blue-900 font-bold dark:text-light-gray;
+  }
+
   h3 {
     @apply text-xs text-blue-900 font-bold mb-2 sm:text-base dark:text-light-gray;
+  }
+
+  main {
+    @apply flex flex-col gap-12 p-5 w-full shadow-lg bg-blue-50 lg:w-11/12 lg:rounded-2xl lg:mx-auto lg:-translate-y-10 dark:bg-dark-gray;
   }
 }
 
