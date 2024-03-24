@@ -1,23 +1,9 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useContext, useEffect } from "react";
-import { CountriesContext } from "src/context/CountriesContext";
+import { useContext } from "react";
 import { FiltersContext } from "src/context/FiltersContext";
 
 const Input = () => {
-  const { countries } = useContext(CountriesContext);
-  const { search, setSearch, setFilteredCountries } =
-    useContext(FiltersContext);
-
-  useEffect(() => {
-    setFilteredCountries(
-      countries.filter(
-        (country) =>
-          country.name.common.toLowerCase() === search.toLowerCase() ||
-          country.region.toLowerCase() === search.toLowerCase() ||
-          country.subregion?.toLowerCase() === search.toLowerCase()
-      )
-    );
-  }, [countries, search, setFilteredCountries]);
+  const { search, setSearch } = useContext(FiltersContext);
 
   return (
     <div className="flex gap-2 box-border p-2 bg-transparent text-blue-world-rank rounded-lg h-10 border-blue-world-rank border-2 shadow dark:border-0 dark:bg-medium-gray dark:text-light-gray ">

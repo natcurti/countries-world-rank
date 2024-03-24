@@ -1,13 +1,10 @@
 import { createContext, useState } from "react";
-import { ICountry } from "src/types/ICountry";
 
 interface IFiltersContext {
   filterTags: string[];
   setFilterTags: React.Dispatch<React.SetStateAction<string[]>>;
   filterStatus: string[];
   setFilterStatus: React.Dispatch<React.SetStateAction<string[]>>;
-  filteredCountries: ICountry[];
-  setFilteredCountries: React.Dispatch<React.SetStateAction<ICountry[]>>;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   sortBy: string;
@@ -19,8 +16,6 @@ export const FiltersContext = createContext<IFiltersContext>({
   setFilterTags: () => {},
   filterStatus: [],
   setFilterStatus: () => {},
-  filteredCountries: [],
-  setFilteredCountries: () => {},
   search: "",
   setSearch: () => {},
   sortBy: "",
@@ -38,7 +33,6 @@ export const FiltersContextProvider = ({
   const [filterStatus, setFilterStatus] = useState<string[]>([]);
   const [search, setSearch] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("Population");
-  const [filteredCountries, setFilteredCountries] = useState<ICountry[]>([]);
 
   return (
     <FiltersContext.Provider
@@ -47,8 +41,6 @@ export const FiltersContextProvider = ({
         setFilterTags,
         filterStatus,
         setFilterStatus,
-        filteredCountries,
-        setFilteredCountries,
         search,
         setSearch,
         sortBy,

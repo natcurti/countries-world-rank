@@ -1,54 +1,91 @@
-import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-} from "@heroicons/react/24/outline";
-import { useContext, useEffect, useState } from "react";
+// import {
+//   ChevronDoubleLeftIcon,
+//   ChevronDoubleRightIcon,
+// } from "@heroicons/react/24/outline";
+// import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Country from "./Country";
-import { ICountry } from "src/types/ICountry";
-import usePagination from "src/hooks/usePagination";
-import ButtonNextAndPrev from "../Buttons/ButtonNextAndPrev";
+import { CountriesContext } from "src/context/CountriesContext";
 import { FiltersContext } from "src/context/FiltersContext";
+import { ICountry } from "src/types/ICountry";
+// import { ICountry } from "src/types/ICountry";
+// import usePagination from "src/hooks/usePagination";
+// import ButtonNextAndPrev from "../Buttons/ButtonNextAndPrev";
+// import { FiltersContext } from "src/context/FiltersContext";
 
 const CountriesContainer = () => {
-  const pages = usePagination();
-  const [countriesToShow, setCountriesToShow] = useState<ICountry[]>([]);
-  const [index, setIndex] = useState<number>(0);
-  const [disabledNext, setDisabledNext] = useState<boolean>(false);
-  const [disabledPrev, setDisabledPrev] = useState<boolean>(false);
-  const { filteredCountries } = useContext(FiltersContext);
+  const { countries } = useContext(CountriesContext);
+  const { sortBy, filterTags, search, filterStatus } =
+    useContext(FiltersContext);
+  let filteredCountries: ICountry[] = [];
 
-  useEffect(() => {
-    if (filteredCountries.length > 0) {
-      setCountriesToShow(filteredCountries);
-      setDisabledNext(true);
-    } else {
-      setCountriesToShow(pages[0]);
-      setDisabledNext(false);
-    }
-    setDisabledPrev(true);
-  }, [pages, filteredCountries]);
+  const filteredContriesByTag = filterTags
+    .map((tag) => countries.filter((country) => country.region === tag))
+    .flat();
 
-  const nextPage = () => {
-    setDisabledPrev(false);
-    if (index < pages.length - 1) {
-      setCountriesToShow(pages[index + 1]);
-      setIndex((previous) => previous + 1);
-    }
-    if (index === 7) {
-      setDisabledNext(true);
-    }
-  };
+  const sortedCountries =
+    sortBy === "Population"
+      ? countries.sort((a, b) => b.population - a.population)
+      : countries.sort((a, b) => b.area - a.area);
 
-  const prevPage = () => {
-    setDisabledNext(false);
-    if (index > 0) {
-      setCountriesToShow(pages[index - 1]);
-      setIndex((previous) => previous - 1);
+  if (filteredContriesByTag.length > 0) {
+    filteredCountries =
+      sortBy === "Population"
+        ? filteredContriesByTag.sort((a, b) => b.population - a.population)
+        : filteredContriesByTag.sort((a, b) => b.area - a.area);
+  } else {
+    filteredCountries = sortedCountries;
+  }
+
+  if (search.length > 0) {
+    const searchedCountry = countries.filter(
+      (country) =>
+        country.name.common.toLowerCase().includes(search.toLowerCase()) ||
+        country.region.toLowerCase().includes(search.toLowerCase()) ||
+        country.subregion?.toLowerCase().includes(search.toLowerCase())
+    );
+    filteredCountries = searchedCountry;
+  }
+
+  if (filterStatus.length > 0) {
+    if (
+      filterStatus.includes("Independent") &&
+      filterStatus.includes("Member of the United Nations")
+    ) {
+      filteredCountries = countries.filter(
+        (country) => country.independent && country.unMember
+      );
+      if (filterTags.length > 0) {
+        filteredCountries = filteredContriesByTag.filter(
+          (country) => country.independent && country.unMember
+        );
+      }
     }
-    if (index === 1) {
-      setDisabledPrev(true);
+    if (
+      !filterStatus.includes("Independent") &&
+      filterStatus.includes("Member of the United Nations")
+    ) {
+      filteredCountries = countries.filter((country) => country.unMember);
+      if (filterTags.length > 0) {
+        filteredCountries = filteredContriesByTag.filter(
+          (country) => country.unMember
+        );
+      }
     }
-  };
+    if (
+      filterStatus.includes("Independent") &&
+      !filterStatus.includes("Member of the United Nations")
+    ) {
+      filteredCountries = countries.filter((country) => country.independent);
+      if (filterTags.length > 0) {
+        filteredCountries = filteredContriesByTag.filter(
+          (country) => country.independent
+        );
+      }
+    }
+  }
+
+  console.log(filteredCountries);
 
   return (
     <section className="lg:w-3/4">
@@ -60,25 +97,24 @@ const CountriesContainer = () => {
       </div>
       <div className="w-full h-[2px] bg-blue-world-rank mb-4 dark:bg-light-gray"></div>
       <div className="flex flex-col gap-4">
-        {countriesToShow &&
-          countriesToShow.map((country, index) => (
-            <Country
-              key={index}
-              name={country.name}
-              independent={country.independent}
-              unMember={country.unMember}
-              currencies={country.currencies}
-              capital={country.capital}
-              region={country.region}
-              subregion={country.subregion}
-              languages={country.languages}
-              area={country.area}
-              population={country.population}
-              flags={country.flags}
-            />
-          ))}
+        {filteredCountries.map((country, index) => (
+          <Country
+            key={index}
+            name={country.name}
+            independent={country.independent}
+            unMember={country.unMember}
+            currencies={country.currencies}
+            capital={country.capital}
+            region={country.region}
+            subregion={country.subregion}
+            languages={country.languages}
+            area={country.area}
+            population={country.population}
+            flags={country.flags}
+          />
+        ))}
       </div>
-      <div className="flex gap-4 justify-center mt-5">
+      {/* <div className="flex gap-4 justify-center mt-5">
         <ButtonNextAndPrev
           onClick={disabledPrev ? () => {} : prevPage}
           disabled={disabledPrev}
@@ -93,7 +129,7 @@ const CountriesContainer = () => {
           Next
           <ChevronDoubleRightIcon className="w-4 sm:w-5" />
         </ButtonNextAndPrev>
-      </div>
+      </div> */}
     </section>
   );
 };

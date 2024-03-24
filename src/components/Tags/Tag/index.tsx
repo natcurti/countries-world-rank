@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { CountriesContext } from "src/context/CountriesContext";
+import { useContext, useState } from "react";
 import { FiltersContext } from "src/context/FiltersContext";
 
 interface ITag {
@@ -8,9 +7,7 @@ interface ITag {
 
 const Tag = ({ region }: ITag) => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const { countries } = useContext(CountriesContext);
-  const { filterTags, setFilterTags, setFilteredCountries } =
-    useContext(FiltersContext);
+  const { filterTags, setFilterTags } = useContext(FiltersContext);
 
   const defineTag = (region: string) => {
     setIsActive(!isActive);
@@ -19,13 +16,6 @@ const Tag = ({ region }: ITag) => {
     index !== -1 &&
       setFilterTags((previous) => previous.filter((item) => item !== region));
   };
-
-  useEffect(() => {
-    const countriesFilteredByTags = filterTags.map((region) =>
-      countries.filter((country) => country.region === region)
-    );
-    setFilteredCountries(countriesFilteredByTags.flat());
-  }, [countries, filterTags, setFilteredCountries]);
 
   return (
     <button
