@@ -1,17 +1,16 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import options from "./options.json";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { FiltersContext } from "src/context/FiltersContext";
 
 const Select = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentOption, setCurrentOption] = useState<string>("Population");
+  const { sortBy, setSortBy } = useContext(FiltersContext);
 
-  const toggleOpen = () => {
-    isOpen ? setIsOpen(false) : setIsOpen(true);
-  };
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   const updateOption = (name: string) => {
-    setCurrentOption(name);
+    setSortBy(name);
     setIsOpen(false);
   };
 
@@ -26,7 +25,7 @@ const Select = () => {
         onClick={toggleOpen}
       >
         <p className={`${isOpen && "text-blue-900 dark:text-offwhite"}`}>
-          {currentOption}
+          {sortBy}
         </p>
         <div>
           <ChevronDownIcon
