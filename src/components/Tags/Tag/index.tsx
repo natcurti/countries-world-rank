@@ -21,10 +21,7 @@ const Tag = ({ region }: ITag) => {
     <button
       onClick={() => defineTag(region)}
       className={`p-2 rounded-2xl hover:underline hover:underline-offset-4 hover:decoration-2  focus:outline-blue-900 dark:focus:outline-white
-            ${
-              isActive &&
-              "bg-blue-world-rank text-white dark:bg-medium-gray dark:text-offwhite"
-            }
+            ${isActive && "bg-config"}
             `}
     >
       {region}

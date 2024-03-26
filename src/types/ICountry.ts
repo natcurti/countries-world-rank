@@ -3,21 +3,15 @@ export interface ICountry {
     common: string;
     official: string;
   };
+  cca3: string;
   independent: boolean;
   unMember: string;
-  currencies: {
-    currency: {
-      name: string;
-      symbol: string;
-    };
-  };
+  currencies: object;
   capital: string;
   region: string;
   subregion: string;
-  languages: {
-    primaryLanguage: string;
-    secondaryLanguage: string;
-  };
+  languages: object;
+  borders: string[];
   area: number;
   population: number;
   flags: {

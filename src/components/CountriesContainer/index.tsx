@@ -1,17 +1,8 @@
-// import {
-//   ChevronDoubleLeftIcon,
-//   ChevronDoubleRightIcon,
-// } from "@heroicons/react/24/outline";
-// import { useContext, useEffect, useState } from "react";
 import { useContext } from "react";
 import Country from "./Country";
 import { CountriesContext } from "src/context/CountriesContext";
 import { FiltersContext } from "src/context/FiltersContext";
 import { ICountry } from "src/types/ICountry";
-// import { ICountry } from "src/types/ICountry";
-// import usePagination from "src/hooks/usePagination";
-// import ButtonNextAndPrev from "../Buttons/ButtonNextAndPrev";
-// import { FiltersContext } from "src/context/FiltersContext";
 
 const CountriesContainer = () => {
   const { countries } = useContext(CountriesContext);
@@ -85,19 +76,18 @@ const CountriesContainer = () => {
     }
   }
 
-  console.log(filteredCountries);
-
   return (
     <section className="lg:w-3/4">
-      <div className="grid grid-cols-4 gap-2 mb-5 title-countries-container">
+      <div className="grid grid-cols-4 gap-2 mb-5 xl:grid-cols-5 title-countries-container">
         <p>Flag</p>
         <p>Name</p>
         <p>Population</p>
         <p>Area(km²)</p>
+        <p className="hidden xl:inline-block">Region</p>
       </div>
       <div className="w-full h-[2px] bg-blue-world-rank mb-4 dark:bg-light-gray"></div>
       <div className="flex flex-col gap-4">
-        {filteredCountries.map((country, index) => (
+        {filteredCountries?.map((country, index) => (
           <Country
             key={index}
             name={country.name}
@@ -114,22 +104,6 @@ const CountriesContainer = () => {
           />
         ))}
       </div>
-      {/* <div className="flex gap-4 justify-center mt-5">
-        <ButtonNextAndPrev
-          onClick={disabledPrev ? () => {} : prevPage}
-          disabled={disabledPrev}
-        >
-          <ChevronDoubleLeftIcon className="w-4 sm:w-5" />
-          Previous
-        </ButtonNextAndPrev>
-        <ButtonNextAndPrev
-          onClick={disabledNext ? () => {} : nextPage}
-          disabled={disabledNext}
-        >
-          Next
-          <ChevronDoubleRightIcon className="w-4 sm:w-5" />
-        </ButtonNextAndPrev>
-      </div> */}
     </section>
   );
 };
