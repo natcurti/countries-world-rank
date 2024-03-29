@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CountriesContext } from "src/context/CountriesContext";
 import { ICountry } from "src/types/ICountry";
 
@@ -9,6 +10,7 @@ interface INeighbouringCountries {
 const NeighbouringCountries = ({ allNeighbors }: INeighbouringCountries) => {
   const { countries } = useContext(CountriesContext);
   const [neighbors, setNeighbors] = useState<ICountry[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const neighbors = allNeighbors.map((abbr) =>
@@ -16,6 +18,11 @@ const NeighbouringCountries = ({ allNeighbors }: INeighbouringCountries) => {
     );
     setNeighbors(neighbors.flat());
   }, [countries, allNeighbors]);
+
+  const navigateToDetailsPage = (name: string) => {
+    const detailspage = name.toLowerCase().replace(" ", "");
+    navigate(`/${detailspage}`);
+  };
 
   return (
     <div className="px-3">
@@ -25,7 +32,11 @@ const NeighbouringCountries = ({ allNeighbors }: INeighbouringCountries) => {
       <div className="flex flex-wrap gap-4">
         {neighbors.length > 0 &&
           neighbors.map((country) => (
-            <div key={country.name.common} className="flex flex-col gap-1">
+            <button
+              key={country.name.common}
+              className="flex flex-col gap-1"
+              onClick={() => navigateToDetailsPage(country.name.common)}
+            >
               <div className="w-20 h-14 rounded">
                 <img
                   src={country.flags.svg}
@@ -36,7 +47,7 @@ const NeighbouringCountries = ({ allNeighbors }: INeighbouringCountries) => {
               <p className="text-xs text-blue-900 dark:text-offwhite">
                 {country.name.common}
               </p>
-            </div>
+            </button>
           ))}
       </div>
     </div>

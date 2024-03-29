@@ -86,7 +86,9 @@ const DetailsPage = () => {
               <p>{countryToShow.region}</p>
             </li>
           </ul>
-          <NeighbouringCountries allNeighbors={allNeighbors} />
+          {allNeighbors.length > 0 && (
+            <NeighbouringCountries allNeighbors={allNeighbors} />
+          )}
         </div>
       ) : (
         <p>Carregando</p>
