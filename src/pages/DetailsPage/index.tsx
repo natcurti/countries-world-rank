@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import NeighbouringCountries from "src/components/NeighbouringCountries";
 import { CountriesContext } from "src/context/CountriesContext";
 import { ICountry } from "src/types/ICountry";
 import { ICurrency } from "src/types/ICurrency";
@@ -10,6 +11,7 @@ const DetailsPage = () => {
   const [countryToShow, setCountryToShow] = useState<ICountry>();
   const [currencies, setCurrencies] = useState<ICurrency[]>([]);
   const [languages, setLanguages] = useState<object>();
+  const [allNeighbors, setAllNeighbors] = useState<string[]>([]);
   const regex = /,/g;
 
   useEffect(() => {
@@ -27,6 +29,9 @@ const DetailsPage = () => {
       setCurrencies(currency);
       const languages = Object.values(countryToShow?.languages);
       setLanguages(languages);
+    }
+    if (countryToShow?.borders) {
+      setAllNeighbors(countryToShow?.borders);
     }
   }, [countryToShow]);
 
@@ -81,6 +86,7 @@ const DetailsPage = () => {
               <p>{countryToShow.region}</p>
             </li>
           </ul>
+          <NeighbouringCountries allNeighbors={allNeighbors} />
         </div>
       ) : (
         <p>Carregando</p>
