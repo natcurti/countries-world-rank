@@ -24,7 +24,7 @@
   }
 
   ul {
-    @apply flex flex-col divide-y-2 border-y-2 divide-blue-200 border-blue-200;
+    @apply flex flex-col divide-y-2 border-y-2 divide-blue-200 border-blue-200 dark:divide-light-gray dark:border-light-gray;
   }
 
   li {
@@ -32,11 +32,11 @@
   }
 
   li p:nth-child(1) {
-    @apply text-blue-world-rank;
+    @apply text-blue-world-rank dark:text-light-gray;
   }
 
   li p:nth-child(2) {
-    @apply text-blue-900;
+    @apply text-blue-900 dark:text-offwhite;
   }
 }
 
