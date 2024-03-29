@@ -10,11 +10,13 @@ const DetailsPage = () => {
   const [countryToShow, setCountryToShow] = useState<ICountry>();
   const [currencies, setCurrencies] = useState<ICurrency[]>([]);
   const [languages, setLanguages] = useState<object>();
+  const regex = /,/g;
 
   useEffect(() => {
     const country = countries.filter(
       (country) =>
-        country.name.common.toLowerCase() === params.name?.toLowerCase()
+        country.name.common.toLowerCase().replace(" ", "") ===
+        params.name?.toLowerCase()
     );
     setCountryToShow(country[0]);
   }, [countries, params.name]);
@@ -33,12 +35,14 @@ const DetailsPage = () => {
       {countryToShow ? (
         <div className="flex flex-col gap-6 mb-10">
           <div className="relative flex flex-col items-center">
-            <img
-              className="w-[14.625rem] rounded-lg absolute -top-16"
-              src={countryToShow.flags.svg}
-              alt={countryToShow.flags.alt}
-            />
-            <div className="flex flex-col items-center gap-1 translate-y-24 mb-24">
+            <div className="w-[14.625rem] h-40 rounded-lg absolute -top-16">
+              <img
+                className="w-[14.625rem] h-40 rounded-lg object-cover"
+                src={countryToShow.flags.svg}
+                alt={countryToShow.flags.alt}
+              />
+            </div>
+            <div className="flex flex-col items-center gap-1 translate-y-24 mb-24 mt-6">
               <h2 className="text-2xl">{countryToShow.name.common}</h2>
               <h3 className="text-base">{countryToShow.name.official}</h3>
             </div>
@@ -66,7 +70,7 @@ const DetailsPage = () => {
             </li>
             <li>
               <p>Language</p>
-              <p>{languages?.toString()}</p>
+              <p>{languages?.toString().replace(regex, ", ")}</p>
             </li>
             <li>
               <p>Currencies</p>
