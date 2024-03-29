@@ -18,21 +18,27 @@ const NeighbouringCountries = ({ allNeighbors }: INeighbouringCountries) => {
   }, [countries, allNeighbors]);
 
   return (
-    <div>
-      <p>Neighbouring Countries</p>
-      {neighbors.length > 0 &&
-        neighbors.map((country) => (
-          <div key={country.name.common}>
-            <div className="w-10">
-              <img
-                src={country.flags.svg}
-                alt={country.flags.alt}
-                className="w-10"
-              />
+    <div className="px-3">
+      <p className="mb-3 text-blue-world-rank dark:text-light-gray">
+        Neighbouring Countries
+      </p>
+      <div className="flex flex-wrap gap-4">
+        {neighbors.length > 0 &&
+          neighbors.map((country) => (
+            <div key={country.name.common} className="flex flex-col gap-1">
+              <div className="w-20 h-14 rounded">
+                <img
+                  src={country.flags.svg}
+                  alt={country.flags.alt}
+                  className="w-20 h-14 object-cover rounded"
+                />
+              </div>
+              <p className="text-xs text-blue-900 dark:text-offwhite">
+                {country.name.common}
+              </p>
             </div>
-            <p>{country.name.common}</p>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 };

@@ -101,6 +101,8 @@ const CountriesContainer = () => {
             area={country.area}
             population={country.population}
             flags={country.flags}
+            borders={country.borders}
+            cca3={country.cca3}
           />
         ))}
       </div>
