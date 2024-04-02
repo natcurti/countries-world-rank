@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NeighbouringCountries from "src/components/NeighbouringCountries";
+import NotFound from "src/components/NotFound";
 import { CountriesContext } from "src/context/CountriesContext";
 import { ICountry } from "src/types/ICountry";
 import { ICurrency } from "src/types/ICurrency";
@@ -12,15 +13,23 @@ const DetailsPage = () => {
   const [currencies, setCurrencies] = useState<ICurrency[]>([]);
   const [languages, setLanguages] = useState<object>();
   const [allNeighbors, setAllNeighbors] = useState<string[]>([]);
+  const [notFound, setNotFound] = useState<boolean>(false);
   const regex = /,/g;
 
   useEffect(() => {
-    const country = countries.filter(
-      (country) =>
-        country.name.common.toLowerCase().replace(" ", "") ===
-        params.name?.toLowerCase()
-    );
-    setCountryToShow(country[0]);
+    if (countries.length > 0) {
+      const country = countries.filter(
+        (country) =>
+          country.name.common.toLowerCase().replace(" ", "") ===
+          params.name?.toLowerCase()
+      );
+      if (country.length > 0) {
+        setCountryToShow(country[0]);
+        setNotFound(false);
+      } else {
+        setNotFound(true);
+      }
+    }
   }, [countries, params.name]);
 
   useEffect(() => {
@@ -37,7 +46,7 @@ const DetailsPage = () => {
 
   return (
     <main className="p-0 lg:w-3/5">
-      {countryToShow ? (
+      {countryToShow && !notFound && (
         <div className="flex flex-col gap-6 mb-10">
           <div className="relative flex flex-col items-center">
             <div className="w-[14.625rem] h-40 rounded-lg absolute -top-16">
@@ -90,9 +99,8 @@ const DetailsPage = () => {
             <NeighbouringCountries allNeighbors={allNeighbors} />
           )}
         </div>
-      ) : (
-        <p>Carregando</p>
       )}
+      {notFound && <NotFound />}
     </main>
   );
 };

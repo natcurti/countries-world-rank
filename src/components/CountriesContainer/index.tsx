@@ -86,7 +86,7 @@ const CountriesContainer = () => {
         <p className="hidden xl:inline-block">Region</p>
       </div>
       <div className="w-full h-[2px] bg-blue-world-rank mb-4 dark:bg-light-gray"></div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {filteredCountries?.map((country, index) => (
           <Country
             key={index}
