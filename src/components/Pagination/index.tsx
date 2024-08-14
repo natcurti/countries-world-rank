@@ -10,6 +10,8 @@ const Pagination = ({
   const [countriesToShow, setCountriesToShow] = useState<ICountry[]>([]);
   const [index, setIndex] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [prevBtn, setPrevBtn] = useState<boolean>(false);
+  const [nextBtn, setNextBtn] = useState<boolean>(true);
 
   const countriesPerPage = useMemo(() => {
     if (filteredCountries.length <= 50) {
@@ -34,6 +36,24 @@ const Pagination = ({
     setCountriesToShow(filteredCountries.slice(0, Math.ceil(countriesPerPage)));
     setIndex(Math.ceil(countriesPerPage));
   }, [filteredCountries, countriesPerPage]);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      setPrevBtn(true);
+    }
+    if (currentPage === 1) {
+      setPrevBtn(false);
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    const totalPages = filteredCountries.length / countriesPerPage;
+    if (currentPage === totalPages) {
+      setNextBtn(false);
+    } else {
+      setNextBtn(true);
+    }
+  }, [countriesPerPage, filteredCountries, currentPage]);
 
   const prevPage = () => {
     if (currentPage > 1) {
@@ -81,8 +101,28 @@ const Pagination = ({
           cca3={country.cca3}
         />
       ))}
-      <button onClick={prevPage}>Prev</button>
-      <button onClick={nextPage}>Next</button>
+      <div className="flex justify-center	gap-x-2">
+        {prevBtn && (
+          <button
+            className="bg-blue-200 text-blue-900 p-3 rounded-xl border-solid border-2 border-transparent
+            hover:border-blue-world-rank
+             dark:bg-darkest-gray dark:text-offwhite dark:hover:border-offwhite"
+            onClick={prevPage}
+          >
+            Página Anterior
+          </button>
+        )}
+        {nextBtn && (
+          <button
+            className="bg-blue-200 text-blue-900 p-3 rounded-xl border-solid border-2 border-transparent
+            hover:border-blue-world-rank
+             dark:bg-darkest-gray dark:text-offwhite dark:hover:border-offwhite"
+            onClick={nextPage}
+          >
+            Próxima Página
+          </button>
+        )}
+      </div>
     </>
   );
 };
