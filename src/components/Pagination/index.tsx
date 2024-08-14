@@ -44,6 +44,7 @@ const Pagination = ({
     if (currentPage === 1) {
       setPrevBtn(false);
     }
+    window.scrollTo(0, 0);
   }, [currentPage]);
 
   useEffect(() => {
