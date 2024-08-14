@@ -3,9 +3,10 @@ import { CountriesContext } from "src/context/CountriesContext";
 import { FiltersContext } from "src/context/FiltersContext";
 import { ICountry } from "src/types/ICountry";
 import Pagination from "../Pagination";
+import Spinner from "../Spinner";
 
 const CountriesContainer = () => {
-  const { countries } = useContext(CountriesContext);
+  const { countries, isLoading, error } = useContext(CountriesContext);
   const { sortBy, filterTags, search, filterStatus } =
     useContext(FiltersContext);
   let filteredCountries: ICountry[] = [];
@@ -86,9 +87,25 @@ const CountriesContainer = () => {
         <p className="hidden xl:inline-block">Region</p>
       </div>
       <div className="w-full h-[2px] bg-blue-world-rank mb-4 dark:bg-light-gray"></div>
-      <div className="flex flex-col gap-3">
-        <Pagination filteredCountries={filteredCountries} />
-      </div>
+      {isLoading && (
+        <div className="w-full mt-10 grid place-items-center">
+          {isLoading && <Spinner />}
+        </div>
+      )}
+      {error && (
+        <div className="w-full mt-10 grid place-items-center">
+          {error && (
+            <p className="text-blue-900 dark:text-offwhite">
+              Não foi possível obter a lista de países.
+            </p>
+          )}
+        </div>
+      )}
+      {!isLoading && !error && (
+        <div className="flex flex-col gap-3">
+          <Pagination filteredCountries={filteredCountries} />
+        </div>
+      )}
     </section>
   );
 };
