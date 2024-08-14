@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import Country from "./Country";
 import { CountriesContext } from "src/context/CountriesContext";
 import { FiltersContext } from "src/context/FiltersContext";
 import { ICountry } from "src/types/ICountry";
+import Pagination from "../Pagination";
 
 const CountriesContainer = () => {
   const { countries } = useContext(CountriesContext);
@@ -87,24 +87,7 @@ const CountriesContainer = () => {
       </div>
       <div className="w-full h-[2px] bg-blue-world-rank mb-4 dark:bg-light-gray"></div>
       <div className="flex flex-col gap-3">
-        {filteredCountries?.map((country, index) => (
-          <Country
-            key={index}
-            name={country.name}
-            independent={country.independent}
-            unMember={country.unMember}
-            currencies={country.currencies}
-            capital={country.capital}
-            region={country.region}
-            subregion={country.subregion}
-            languages={country.languages}
-            area={country.area}
-            population={country.population}
-            flags={country.flags}
-            borders={country.borders}
-            cca3={country.cca3}
-          />
-        ))}
+        <Pagination filteredCountries={filteredCountries} />
       </div>
     </section>
   );
