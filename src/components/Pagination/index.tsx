@@ -11,8 +11,6 @@ const Pagination = ({
   const [index, setIndex] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  console.log(filteredCountries.length);
-
   const countriesPerPage = useMemo(() => {
     if (filteredCountries.length <= 50) {
       return filteredCountries.length;
@@ -33,7 +31,7 @@ const Pagination = ({
   }, [filteredCountries]);
 
   useEffect(() => {
-    setCountriesToShow(filteredCountries.slice(0, countriesPerPage + 1));
+    setCountriesToShow(filteredCountries.slice(0, Math.ceil(countriesPerPage)));
     setIndex(Math.ceil(countriesPerPage));
   }, [filteredCountries, countriesPerPage]);
 
@@ -41,11 +39,11 @@ const Pagination = ({
     if (currentPage > 1) {
       setCountriesToShow(
         filteredCountries.slice(
-          countriesPerPage * (currentPage - 2),
-          countriesPerPage * (currentPage - 1) + 1
+          Math.ceil(countriesPerPage) * (currentPage - 2),
+          Math.ceil(countriesPerPage) * (currentPage - 1)
         )
       );
-      setIndex(() => Math.ceil(countriesPerPage * (currentPage - 1)));
+      setIndex(() => Math.ceil(countriesPerPage) * (currentPage - 1));
       setCurrentPage((previous) => previous - 1);
     }
   };
@@ -53,9 +51,12 @@ const Pagination = ({
   const nextPage = () => {
     if (index < filteredCountries.length) {
       setCountriesToShow(
-        filteredCountries.slice(index, countriesPerPage * (currentPage + 1) + 1)
+        filteredCountries.slice(
+          index,
+          Math.ceil(countriesPerPage) * (currentPage + 1)
+        )
       );
-      setIndex(() => Math.ceil(countriesPerPage * (currentPage + 1)));
+      setIndex(() => Math.ceil(countriesPerPage) * (currentPage + 1));
       setCurrentPage((previous) => previous + 1);
     }
   };
